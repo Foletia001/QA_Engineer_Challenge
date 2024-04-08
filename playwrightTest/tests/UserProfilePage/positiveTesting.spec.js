@@ -1,16 +1,7 @@
-import { test, expect, page } from '@playwright/test';
+const { test , expect} = require('@playwright/test')
 //import { UserProfileForm } from '../../pages/pageObjects';
 const testData = require('../userData.json')
 
-
-/*test.describe('Positive testing',() => {
-        test.beforeAll(async ({ page }) => {
-            page.goTo('https://qa-assessment.pages.dev/')
-           
-
-        })*/
-
-//ensuring the heading of each box field contains mandatory or optional
 test.beforeEach(async ({ page }) => {
     await page.goto('https://qa-assessment.pages.dev/')
 })
@@ -45,18 +36,18 @@ test('filling all fields correctly', async ({ page }) => {
 
     await page.locator(testData.submitBtn).click()
 
-  /*  await expect(testData.first_name_textBox).not.toContainText()
-    await expect(testData.last_name_textBox).toHaveLength(0)
-    await expect(testData.email_textBox).toHaveLength(0)
-    await expect(testData.password_textBox).toHaveLength(0)
-    await expect(testData.confirm_password_textbox).toHaveLength(0)
-    await assert(testData.checkBox_feild).toHaveLength(0)
-    await expect(testData.birthDate_feild).toHaveLength(0)
-    await expect(testData.phone_num_textbox).toHaveLength(0)
-    await expect(testData.address_textbox).toHaveLength(0)
-    await expect(testData.linkedInAddress_textbox).toHaveLength(0)
-    await expect(testData.githubAdress_textbox).toHaveLength(0)
-*/
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
 
     //verifying all fields are cleared
 })
@@ -75,18 +66,16 @@ test('filling all fields except first name field ', async ({ page }) => {
     await page.locator(testData.linkedInAddress_textbox).fill(testData.linkedIn)
     await page.locator(testData.githubAdress_textbox).fill(testData.github)
 
-
-    await page.locator(testData.submitBtn).click()
-
-    page.on('dialog', async dialog => {
+    page.on('dialog', async (dialog) => {
         expect(dialog.message()).toContain('First name must be filled out');
-        await dialog.dismiss();
+        await dialog.accept();
       });
 
+      await page.locator(testData.submitBtn).click()
 
 })
 
-test.only('filling all fields except last name field', async ({ page }) => {
+test('filling all fields except last name field', async ({ page }) => {
     await page.locator(testData.first_name_textBox).fill(testData.firstName)
     await page.locator(testData.email_textBox).fill(testData.email)
     await page.locator(testData.password_textBox).fill(testData.password)
@@ -99,12 +88,12 @@ test.only('filling all fields except last name field', async ({ page }) => {
     await page.locator(testData.githubAdress_textbox).fill(testData.github)
 
 
-    await page.locator(testData.submitBtn).click()
-    
-    page.on('dialog', async dialog => {
+    page.on('dialog', async (dialog) => {
         expect(dialog.message()).toContain('Last name must be filled out');
-        await dialog.dismiss();
+        await dialog.accept();
       });
+
+      await page.locator(testData.submitBtn).click()
 
 })
 test('filling all fields except email field', async ({ page }) => {
@@ -119,10 +108,12 @@ test('filling all fields except email field', async ({ page }) => {
     await page.locator(testData.linkedInAddress_textbox).fill(testData.linkedIn)
     await page.locator(testData.githubAdress_textbox).fill(testData.github)
 
+    page.on('dialog', async (dialog) => {
+        expect(dialog.message()).toContain('Email must be filled out');
+        await dialog.accept();
+      });
 
-    await page.locator(testData.submitBtn).click()
-
-
+      await page.locator(testData.submitBtn).click()
 
 })
 test('filling all field except password field', async ({ page }) => {
@@ -137,8 +128,12 @@ test('filling all field except password field', async ({ page }) => {
     await page.locator(testData.githubAdress_textbox).fill(testData.github)
 
 
-    await page.locator(testData.submitBtn).click()
+    page.on('dialog', async (dialog) => {
+        expect(dialog.message()).toContain('Confirm password must be filled out');
+        await dialog.accept();
+      });
 
+      await page.locator(testData.submitBtn).click()
 })
 
 /* test('number of gender select fields to be displayed should be 4', async ({ page }) => {
@@ -161,6 +156,19 @@ test('fill all fields except gender check field', async ({ page }) => {
 
     await page.locator(testData.submitBtn).click()
 
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
+
 })
 
 test('fill all fields except birth date field', async ({ page }) => {
@@ -177,6 +185,18 @@ test('fill all fields except birth date field', async ({ page }) => {
 
 
     await page.locator(testData.submitBtn).click()
+
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
 
 
 })
@@ -197,6 +217,19 @@ test('fill all fields except phone number field', async ({ page }) => {
 
     await page.locator(testData.submitBtn).click()
 
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
+
 })
 test('fill all fields except address field', async ({ page }) => {
 
@@ -214,6 +247,19 @@ test('fill all fields except address field', async ({ page }) => {
 
     await page.locator(testData.submitBtn).click()
 
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
+
 })
 test('fill all field except linkedIn address field', async ({ page }) => {
 
@@ -230,6 +276,19 @@ test('fill all field except linkedIn address field', async ({ page }) => {
 
 
     await page.locator(testData.submitBtn).click()
+    
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
 
 
 })
@@ -248,6 +307,19 @@ test('fill all fields except github address field', async ({ page }) => {
 
 
     await page.locator(testData.submitBtn).click()
+
+    await expect(testData.first_name_textBox).toContain('')
+    await expect(testData.last_name_textBox).toContain('')
+    await expect(testData.email_textBox).toContain('')
+    await expect(testData.password_textBox).toContain('')
+    await expect(testData.confirm_password_textbox).toContain('')
+    await expect(testData.checkBox_feild).toContain('')
+    await expect(testData.birthDate_feild).toContain('')
+    await expect(testData.phone_num_textbox).toContain('')
+    await expect(testData.address_textbox).toContain('')
+    await expect(testData.linkedInAddress_textbox).toContain('')
+    await expect(testData.githubAdress_textbox).toContain('')
+
 
 
 })

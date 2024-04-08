@@ -1,6 +1,3 @@
-/*export class UserProfileForm{
+import jsonData from '../tests/userData.json' assert {type : 'json'};
 
-    inputFirstName(d, e){
-        return page.locator(d).fill(e)
-    }
-}*/
+console.log(jsonData);
